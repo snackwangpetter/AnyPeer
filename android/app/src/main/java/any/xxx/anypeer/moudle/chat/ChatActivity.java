@@ -776,7 +776,8 @@ public class ChatActivity extends AppCompatActivity implements IMessageCallback,
 
     private void initEmoticon() {
         ArrayList<EmojiBean> emojiArray = new ArrayList<>();
-        Collections.addAll(emojiArray, DefEmoticons.sEmojiArray);
+//        Collections.addAll(emojiArray, DefEmoticons.sEmojiArray);
+        Collections.addAll(emojiArray, DefEmoticons.getDefEmojiArray());
 
         final EmoticonClickListener emoticonClickListener = new EmoticonClickListener() {
             @Override

@@ -1,5 +1,6 @@
 package any.xxx.anypeer.moudle.chat;
 
+import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.widget.EditText;
 
@@ -23,7 +24,23 @@ public class EmojiFilter extends EmoticonFilter {
         if (m != null) {
             while (m.find()) {
                 String emojiHex = Integer.toHexString(Character.codePointAt(m.group(), 0));
-                EmojiDisplay.emojiDisplay(editText.getContext(), editText.getText(), emojiHex, emojiSize, start + m.start(), start + m.end());
+//                EmojiDisplay.emojiDisplay(editText.getContext(), editText.getText(), emojiHex, emojiSize, start + m.start(), start + m.end());
+                Drawable drawable = getDrawable(editText.getContext(), EmojiDisplay.HEAD_NAME + emojiHex);
+                if(drawable != null) {
+                    int itemHeight;
+                    int itemWidth;
+                    if(emojiSize == EmojiDisplay.WRAP_DRAWABLE) {
+                        itemHeight = drawable.getIntrinsicHeight();
+                        itemWidth = drawable.getIntrinsicWidth();
+                    } else {
+                        itemHeight = emojiSize;
+                        itemWidth = emojiSize;
+                    }
+
+                    drawable.setBounds(0, 0, itemHeight, itemWidth);
+                    EmojiSpan imageSpan = new EmojiSpan(drawable);
+                    editText.getText().setSpan(imageSpan, start + m.start(), start + m.end(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                }
             }
         }
     }
